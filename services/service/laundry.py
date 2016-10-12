@@ -32,6 +32,7 @@ def getMachines(roomid, machinetype):
 
 #### Adjust the array to hold something
 #### (I'll have to figure this out a little better)
+#### JK it basically moves to the next tag or item under the tag
     machine = washer_div.next_sibling
 
 #### We can investigate the data files to see what exactly this is doing
