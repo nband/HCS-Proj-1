@@ -11,7 +11,7 @@ import data
 #############################    
 
 #### Here's the scraping portion, luckily they've built a lot of it for us
-def getMachines(roomid, machinetype):
+def getCoupons(roomid, coupon):
 #### Creates an empty array called 'machines'
     machines = []
 

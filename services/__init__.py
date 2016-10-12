@@ -1,5 +1,2 @@
-#### These imports will obv. be different for us,
-#### we just cannot forget to change them
-from laundry import laundry
-from shuttle import shuttle
-from weather import weather
+#### I think I've adjusted this correctly
+from coupon import coupon
