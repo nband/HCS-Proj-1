@@ -11,19 +11,16 @@ def filter(tag,cmds=data.box):
 
 ## evaluates a given command to a string by delegating to the proper service
 def eval(cmd, input=None):
-
-    #### I believe we only get one service, so I've elminated the other options for services here
     s = ""
-    #### We obv. cannot use Laundry, so when we decide, we need to replace this
-    if cmd['service'] == 'L': ## Laundry 
-        return laundry.eval(cmd['args'])
+        if cmd['service'] == 'C': ## Coupon
+        return coupon.eval(cmd['args'])
     else:
         return "ERROR 42: service not recognized"
 
 ## list of services that need the user's input to work, not a command
 #### We will likely need this section, since we need the user to input a location (for coupon stuff)
 def needsInput(cmd):
-    return cmd['service'] in ['W']
+    return cmd['service'] in ['C']
 
 """
 Again, I deleted anything that was not the first service since we will only have one (with the
@@ -36,16 +33,9 @@ def special(incoming):
     elif incoming.upper() == "DEMO": ## We are going to need to adjust this later
         ## welcome/instructions
         body = 'Thanks for using Harvard Now!\n'
-        body += 'Laundry Information is accessed by sending the name of your laundry room\n'
-        body += 'e.g. Lowell D\n'
-        body += 'For a list of all laundry rooms send laundry\n\n'
-        body += 'To access shuttle information send the name of the stop or name of the route\n'
-        body += 'e.g. Widener Gate; Quad Yard Express\n'
-        body += 'For a list of all shuttle stops and routes send shuttle\n\n'
-        body += 'Sending part of a name gives all information associated with that name.\n'
-        body += 'For example sending Quad will give information about the shuttle stop Quad and the shuttle'
-        body += 'route Quad Yard Express and sending Quincy laundry will give all the laundry rooms in Quincy.\n'
-    return body
+        body += 'A list of restaurants with coupons right now is accessed by sending what you\'re in the mood for right now\n'
+        body += 'e.g. Chinese\n'
+     return body
 
 ## main function
 @app.route("/", methods=['GET', 'POST'])
