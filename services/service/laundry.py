@@ -1,23 +1,40 @@
 import urllib2, urllib
 from bs4 import BeautifulSoup
+
+#### Links us to data.py in order to allow us to edit the data therein
 import data
+
 #### Title will need to be changed later, though the imports will not
 
 #############################
-##    Laundry Function     ##
+##    Our Function     ##
 #############################    
 
 #### Here's the scraping portion, luckily they've built a lot of it for us
 def getMachines(roomid, machinetype):
+#### Creates an empty array called 'machines'
     machines = []
 
 #### How will multiple urls work for us, and will we need more than one?
-    url = 'http://m.laundryview.com/submitFunctions.php?'
-    url += 'cell=null&lr=%s&monitor=true' % roomid
+    url = '[PLACEURLTOSCRAPEHERE]'
+    
+#### Make the url customizable using the roomid
+    url += 'cell=null&lr=%s&monitor=true' % (roomid)
+
+#### Create a website object for BeautifulSoup to parse out
     website = urllib2.urlopen(url)
+
+#### Parse out the website using Beautiful Soup
     soup = BeautifulSoup(website.read(), 'html.parser')
+
+#### Find a specific tag using the id that was passed as 'machinetype'
     washer_div = soup.find(id=machinetype)
+
+#### Adjust the array to hold something
+#### (I'll have to figure this out a little better)
     machine = washer_div.next_sibling
+
+#### We can investigate the data files to see what exactly this is doing
     if machinetype == 'washer':
         while 'id' not in machine.attrs or machine['id'] != 'dryer':
             machines.append({'lr': roomid,
@@ -32,6 +49,7 @@ def getMachines(roomid, machinetype):
              'name': `(machine.a.text)`.split('\\xa0')[0][2:],
              'time': machine.a.p.text})
             machine = machine.next_sibling
+#### Returns to us the edited versions
     return machines
 
 #### We may want these to be something like: 
