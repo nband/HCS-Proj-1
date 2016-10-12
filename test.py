@@ -1,5 +1,9 @@
+#### Our imports will likely need to be different and
+#### renamed according to our service
 import run, LaundryScrape, shuttle
 
+#### I doubt we will need this many options, but in the event that we do,
+#### I left this alone
 f = open('output.txt', 'w')
 option = 4
 if (option == 1):

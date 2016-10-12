@@ -1,13 +1,17 @@
 import urllib2, urllib
 from bs4 import BeautifulSoup
 import data
+#### Title will need to be changed later, though the imports will not
 
 #############################
 ##    Laundry Function     ##
 #############################    
 
+#### Here's the scraping portion, luckily they've built a lot of it for us
 def getMachines(roomid, machinetype):
     machines = []
+
+#### How will multiple urls work for us, and will we need more than one?
     url = 'http://m.laundryview.com/submitFunctions.php?'
     url += 'cell=null&lr=%s&monitor=true' % roomid
     website = urllib2.urlopen(url)
@@ -30,6 +34,8 @@ def getMachines(roomid, machinetype):
             machine = machine.next_sibling
     return machines
 
+#### We may want these to be something like: 
+#### Restaurants, Hours?, Coupon Type? IDK
 def machines_to_string(machines):
     s = ''
     for machine in machines:

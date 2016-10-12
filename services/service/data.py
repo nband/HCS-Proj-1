@@ -1,3 +1,5 @@
+#### This is more data that I'm fairly certain we can collect
+#### (and write) systematically
 rooms = {
     '10 DEWOLFE STREET'                   : "144633",
     '1201 MASS AVE 3RD FLR LR'            : "1362515",
