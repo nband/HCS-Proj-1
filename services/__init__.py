@@ -1,2 +1,3 @@
-#### I think I've adjusted this correctly
-from coupon import coupon
+from laundry import laundry
+from shuttle import shuttle
+from weather import weather

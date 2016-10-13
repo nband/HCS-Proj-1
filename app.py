@@ -12,30 +12,40 @@ def filter(tag,cmds=data.box):
 ## evaluates a given command to a string by delegating to the proper service
 def eval(cmd, input=None):
     s = ""
-        if cmd['service'] == 'C': ## Coupon
-        return coupon.eval(cmd['args'])
+    if cmd['service'] == 'L': ## Laundry
+        return laundry.eval(cmd['args'])
+    elif cmd['service'] == 'S': ## Shuttle
+        return shuttle.eval(cmd['args'])
+    elif cmd['service'] == 'W': ## Weather
+        return weather.eval(input)
     else:
         return "ERROR 42: service not recognized"
 
 ## list of services that need the user's input to work, not a command
-#### We will likely need this section, since we need the user to input a location (for coupon stuff)
 def needsInput(cmd):
-    return cmd['service'] in ['C']
+    return cmd['service'] in ['W']
 
-"""
-Again, I deleted anything that was not the first service since we will only have one (with the
-exception of DEMO in the event that we wish to keep the demo stuff in here
-"""
 def special(incoming):
     body = ''
     if incoming.upper() == "SHUTTLE" :
         body = shuttle.special
-    elif incoming.upper() == "DEMO": ## We are going to need to adjust this later
+    elif incoming.upper() == "LAUNDRY":
+        body = laundry.special
+    elif incoming.upper() == "WEATHER":
+        body = weather.special
+    elif incoming.upper() == "DEMO":
         ## welcome/instructions
         body = 'Thanks for using Harvard Now!\n'
-        body += 'A list of restaurants with coupons right now is accessed by sending what you\'re in the mood for right now\n'
-        body += 'e.g. Chinese\n'
-     return body
+        body += 'Laundry Information is accessed by sending the name of your laundry room\n'
+        body += 'e.g. Lowell D\n'
+        body += 'For a list of all laundry rooms send laundry\n\n'
+        body += 'To access shuttle information send the name of the stop or name of the route\n'
+        body += 'e.g. Widener Gate; Quad Yard Express\n'
+        body += 'For a list of all shuttle stops and routes send shuttle\n\n'
+        body += 'Sending part of a name gives all information associated with that name.\n'
+        body += 'For example sending Quad will give information about the shuttle stop Quad and the shuttle'
+        body += 'route Quad Yard Express and sending Quincy laundry will give all the laundry rooms in Quincy.\n'
+    return body
 
 ## main function
 @app.route("/", methods=['GET', 'POST'])
@@ -44,8 +54,6 @@ def response():
     incoming = request.values.get('Body',None)
 
     ## first check if the query is a special case
-    #### I bet we could modify this a bit, if we have time
-    #### This error section doesn't seem to need much in terms of editing to function though
     body = special(incoming.replace(' ',''))
     if body != '':
         resp.message(body)
