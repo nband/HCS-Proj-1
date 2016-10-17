@@ -25,7 +25,7 @@ def eval(cmd, input=None):
 
 ## list of services that need the user's input to work, not a command
 def needsInput(cmd):
-    return cmd['service'] in ['W']
+    return cmd['service'] in ['C']
 
 def special(incoming):
     body = ''
@@ -49,6 +49,8 @@ def special(incoming):
         body += 'Sending part of a name gives all information associated with that name.\n'
         body += 'For example sending Quad will give information about the shuttle stop Quad and the shuttle'
         body += 'route Quad Yard Express and sending Quincy laundry will give all the laundry rooms in Quincy.\n'
+        body += 'For a list of restaurants with coupons as well as links to those coupons, send coupon and a food style\n'
+        body += 'e.g. coupon Chinese'
     return body
 
 ## main function
